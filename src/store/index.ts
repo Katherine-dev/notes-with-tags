@@ -1,8 +1,24 @@
 import { createStore } from 'vuex';
-import note from '@/store/notes-store';
+import notes from '@/store/notes-store';
+import tags from '@/store/tags-store';
 
 export default createStore({
+  state: {
+    selfNote: ['lalal'],
+  },
+  getters: {
+    getself(state) {
+      return state.selfNote;
+    },
+  },
   modules: {
-    note,
+    notes: {
+      namespaced: true,
+      ...notes,
+    },
+    tags: {
+      namespaced: true,
+      ...tags,
+    },
   },
 });

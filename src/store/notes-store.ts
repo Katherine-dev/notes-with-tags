@@ -9,7 +9,7 @@ interface INotesStore {
 
 const store: Module<INotesStore, any> = {
   state: {
-    notes: [],
+    notes: [{ content: 'note-1' }],
   },
   mutations: {
     addNote(state, payload: INote) {
@@ -18,6 +18,7 @@ const store: Module<INotesStore, any> = {
   },
   getters: {
     getNotes(state) {
+      console.log(`form ts${state.notes}`);
       return state.notes;
     },
   },

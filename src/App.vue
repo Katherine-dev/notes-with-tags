@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <aside class="container__aside">
+      <Combobox/>
       Lorem ipsum, dolor sit amet consectetur adipisicing elit.
       Molestias quaerat ea et vero aperiam hic dolorem beatae,
       laboriosam mollitia at! Soluta distinctio veniam ut expedita
@@ -17,9 +18,22 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
+import { mapGetters } from 'vuex';
+import Combobox from '@/components/Combobox.vue';
 
 @Options({
   components: {
+    Combobox,
+  },
+  computed: {
+    getDefaultNote() {
+      // return this.$store.getters.getself;
+      return this.$store.getters['notes/getNotes'];
+    },
+  },
+  created() {
+    console.log(Array.from(this.getDefaultNote)[0]);
+    // console.log(this.getDefaultNote);
   },
 })
 
