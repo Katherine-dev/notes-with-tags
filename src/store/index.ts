@@ -4,11 +4,19 @@ import tags from '@/store/tags-store';
 
 export default createStore({
   state: {
-    selfNote: ['lalal'],
+    selectedTag: '',
   },
   getters: {
-    getself(state) {
-      return state.selfNote;
+    getSelectedTag(state) {
+      return state.selectedTag;
+    },
+  },
+  actions: {
+
+  },
+  mutations: {
+    changeTag(state, value: string) {
+      state.selectedTag = value;
     },
   },
   modules: {

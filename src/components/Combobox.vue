@@ -1,8 +1,8 @@
 <template>
   <div class="combobox">
-    <select class="default-option" v-model="selected" @change="action($event)">
+   <select class="default-option" v-model="selectedTag" @change="action($event)">
         <option disabled value="">Choose a tag</option>
-        <option v-for="tag in tags"
+        <option v-for="tag in storeTags"
         :key="tag"
         >{{tag}}</option>
       </select>
@@ -10,33 +10,37 @@
 </template>
 
 <script lang="ts" >
+
 import { Options, Vue } from 'vue-class-component';
+import {
+  mapGetters, mapActions, mapMutations, mapState,
+} from 'vuex';
 
-  @Options({
-    computed: {
-      getTags() {
-        return this.$store.getters['tags/getTags'];
-      },
-    },
-  })
-export default class Combobox extends Vue {
+@Options({
+  state: { selectedTag: String },
+  computed: {
+    ...mapGetters({
+      storeTags: 'tags/getTags',
+      selectedTag: 'getSelectedTag',
+    }),
+    // ...mapState({
+    //   message: (state) => this.$store.state.selectedTag,
+    // }),
+    // ...mapMutations(['changeTag']),
+  },
   created() {
-    console.log(this.$options.getTags);
-  }
+    console.log('tags\n');
+    console.log(this.storeTags);
+  },
+  methods: {
+    action(event: { target: { value: any; }; }): void {
+      console.log(`selected tag is ${event.target.value}`);
+      this.$store.commit('changeTag', event.target.value);
+    },
+  },
+})
 
-  private tags: Array<string> = []
-
-  private selected = '';
-
-  // @Prop({
-  //   ['tags']
-  // })
-  // methods: {
-  //   action(event) {
-  //     console.log(event.target.value);
-  //     this.$emit('change-tag', event.target.value);
-  //   },
-  // },
+export default class Combobox extends Vue {
 }
 </script>
 
@@ -52,7 +56,3 @@ export default class Combobox extends Vue {
 }
 
 </style>
-
-function Component(arg0: { computed: { foo: import("vuex").Computed; }; }) {
-  throw new Error('Function not implemented.');
-}

@@ -2,10 +2,7 @@
   <div class="container">
     <aside class="container__aside">
       <Combobox/>
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-      Molestias quaerat ea et vero aperiam hic dolorem beatae,
-      laboriosam mollitia at! Soluta distinctio veniam ut expedita
-      dolorem eos dolorum ex repudiandae?
+      <ElementList/>
     </aside>
     <main class="container__content">
       Lorem ipsum dolor sit amet consectetur, adipisicing elit.
@@ -20,19 +17,21 @@
 import { Options, Vue } from 'vue-class-component';
 import { mapGetters } from 'vuex';
 import Combobox from '@/components/Combobox.vue';
+import ElementList from '@/components/ElementList.vue';
 
 @Options({
   components: {
     Combobox,
+    ElementList,
   },
   computed: {
-    getDefaultNote() {
+    storeNotes() {
       // return this.$store.getters.getself;
       return this.$store.getters['notes/getNotes'];
     },
   },
   created() {
-    console.log(Array.from(this.getDefaultNote)[0]);
+    console.log(Array.from(this.storeNotes)[0]);
     // console.log(this.getDefaultNote);
   },
 })
@@ -57,6 +56,7 @@ body,
 .container {
   margin: 0;
   height: 100%;
+  overflow: hidden;
 }
 
 .container {
@@ -64,9 +64,12 @@ body,
 }
 
 .container__aside {
+  display: flex;
+  flex-direction: column;
   flex: 0;
   min-width: 210px;
   width: 210px;
+  background-color: #e0e0e0;
 }
 
 .container__main {
