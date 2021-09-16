@@ -1,0 +1,106 @@
+{
+  "Vue3Component": {
+    "prefix": "vue3 component",
+    "body": [
+      "import { defineComponent } from 'vue'",
+      "\nexport default defineComponent({",
+      "\tsetup () {",
+      "\t\treturn {}",
+      "\t}",
+      "})"
+    ],
+    "description": "Vue 3 component"
+  },
+  "Vue2Component": {
+    "prefix": "vue2 composition component",
+    "body": [
+      "import { defineComponent } from '@vue/composition-api'",
+      "\nexport default defineComponent({",
+      "\tsetup () {",
+      "\t\treturn {}",
+      "\t}",
+      "})"
+    ],
+    "description": "Vue 3 component"
+  },
+  "NuxtComponent": {
+    "prefix": "nuxt component",
+    "body": [
+      "import { defineComponent } from '@nuxtjs/composition-api'",
+      "\nexport default defineComponent({",
+      "\tsetup () {",
+      "\t\treturn {}",
+      "\t}",
+      "})"
+    ],
+    "description": "Vue 3 for Nuxt component"
+  },
+  "Class": {
+    "prefix": "class filename",
+    "body": [
+      "export class $TM_FILENAME_BASE {",
+      "\t$1",
+      "}"
+    ],
+    "description": "Class with name as filename"
+  },
+  "Interface": {
+    "prefix": "interface filename",
+    "body": [
+      "export interface $TM_FILENAME_BASE {",
+      "\t$1",
+      "}"
+    ],
+    "description": "Interface with name as filename"
+  },
+  "Enum": {
+    "prefix": "enum filename",
+    "body": [
+      "export enum $TM_FILENAME_BASE {",
+      "\t$1",
+      "}"
+    ],
+    "description": "Enum with name as filename"
+  },
+  "NotImplemented": {
+    "prefix": "not implemented",
+    "body": [
+      "throw new Error('Not implemented')"
+    ],
+    "description": "Not implemented stub"
+  },
+  "TODO": {
+    "prefix": "todo",
+    "body": [
+      "$LINE_COMMENT TODO ($CURRENT_YEAR.$CURRENT_MONTH.$CURRENT_DATE): $1"
+    ],
+    "description": "TODO"
+  },
+  "FIXME": {
+    "prefix": "fixme",
+    "body": [
+      "$LINE_COMMENT FIXME ($CURRENT_YEAR.$CURRENT_MONTH.$CURRENT_DATE): $1"
+    ],
+    "description": "FIXME"
+  },
+  "AFAIK": {
+    "prefix": "afaik",
+    "body": [
+      "$LINE_COMMENT AFAIK ($CURRENT_YEAR.$CURRENT_MONTH.$CURRENT_DATE): $1"
+    ],
+    "description": "AFAIK"
+  },
+  "Vue-class-style-component": {
+    "prefix": "vcsc",
+    "body": [
+      "import { Options, Vue } from 'vue-class-component'",
+      "",
+      "@Options({})",
+      "export default class $TM_FILENAME_BASE extends Vue {",
+      "\t$1",
+      "}",
+      ""
+    ],
+    "description": "Vue class style component"
+  }
+}

@@ -2,7 +2,8 @@
   <div class= "element" v-for="note in storeNotes"
         :key="note"
         v-show="note.tags.includes(selectedTag)&&selectedTag!=''"
-        >{{note.content}}
+        v-on:click="onHide(note.id,storeNotes)"
+        >{{note.title}}
   </div>
 </template>
 
@@ -18,6 +19,15 @@ import { mapGetters, mapActions } from 'vuex';
       storeTags: 'tags/getTags',
       selectedTag: 'getSelectedTag',
     }),
+  },
+  methods: {
+    onHide(noteId: number) {
+      // тут я вызываю две мутации - для index и notes-store
+      // первая- для смены общего состояния (отрисовки)
+      // вторая- для изменения поля конкретного объекта 'show'
+      this.$store.commit('onHide');
+      this.$store.commit('showNote', noteId);
+    },
   },
 })
 export default class ElementList extends Vue {}
