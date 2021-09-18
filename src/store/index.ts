@@ -8,6 +8,12 @@ export default createStore({
     addNote: false,
     showNote: false,
     editNote: false,
+    editNoteObj: {
+      id: 0,
+      title: '',
+      content: '',
+      tag: [''],
+    },
   },
   getters: {
     getSelectedTag(state) {
@@ -22,6 +28,9 @@ export default createStore({
     editNote(state) {
       return state.editNote;
     },
+    getEditNoteObj(state) {
+      return state.editNoteObj;
+    },
   },
   actions: {
   },
@@ -34,11 +43,32 @@ export default createStore({
       state.showNote = false;
       state.editNote = false;
     },
-    onHide(state) {
+    showNoteActive(state) {
       console.log('from index');
       state.showNote = true;
       state.addNote = false;
       state.editNote = false;
+
+      state.editNoteObj.id = 0;
+      state.editNoteObj.title = '';
+      state.editNoteObj.content = '';
+      state.editNoteObj.tags = [''];
+    },
+    editNoteActive(state,
+      editNote: { id: number; title: string; content: string; tags: string; }) {
+      state.editNote = true;
+      state.addNote = false;
+      state.showNote = false;
+
+      state.editNoteObj.id = editNote.id;
+      state.editNoteObj.title = editNote.title;
+      state.editNoteObj.content = editNote.content;
+      state.editNoteObj.tags = editNote.tags;
+    },
+    defaultState(state) {
+      state.editNote = false;
+      state.addNote = false;
+      state.showNote = false;
     },
   },
   modules: {

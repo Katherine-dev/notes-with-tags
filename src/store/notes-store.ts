@@ -24,11 +24,23 @@ const store: Module<INotesStore, any> = {
     addNote(state, payload: INote) {
       state.notes.push(payload);
     },
-    showNote(state, noteId:number) {
+    showNote(state, payload:number) {
       state.notes.forEach((element) => {
         // eslint-disable-next-line no-param-reassign
-        element.show = (element.id === noteId);
+        element.show = (element.id === payload);
       });
+    },
+    removeNote(state, noteToRemove : INote) {
+      // noteToRemove.tags.forEach((tag) => {
+      //   if (allNotesTags.filter((t) => t === tag).length === 1) {
+      //     // localStorage.removeItem('tags');
+      //     // localStorage.removeItem('notes');
+      //   }
+      // });
+      state.notes = state.notes.filter((t) => t.id !== noteToRemove.id);
+    },
+    editNote(state, editNote: INote) {
+      console.log('edit from notes-store');
     },
   },
   getters: {

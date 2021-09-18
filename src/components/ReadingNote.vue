@@ -1,6 +1,5 @@
 <template>
   <div  class="note-to-show">
-    lolokok
       <ul>
         <li class="note" v-for="note in notes"
         :key=note.id
@@ -10,7 +9,7 @@
         <p class="show-title">{{ note.title }} </p>
         <div class="button-container">
         <button class="edit-button" @click="editNoteFun(note)">Edit note</button>
-        <button @click="$emit('remove-note', note)">Delete note</button>
+        <button @click="getAllTags(note)">Delete note</button>
         </div>
         </div>
         <!-- <AddTagToNote
@@ -19,8 +18,8 @@
         <div class="main-block">
          <p class="show-content"> {{note.content}} </p>
          <div class="show-tags">
-         <p v-for="tag in note.tags" :key=tag> #{{tag}}
-           <button class="rm" @click="$emit('remove-tag', { noteId: note.id , Tag: tag })">
+         <p class="tag" v-for="tag in note.tags" :key=tag> #{{tag}}
+           <button class="rm" @click="removeTag({ noteId: note.id , Tag: tag })">
              &times;
            </button>
          </p>
@@ -31,7 +30,78 @@
       </div>
 </template>
 
+<script lang="ts" >
+
+import { Options, Vue } from 'vue-class-component';
+import { mapGetters, mapActions } from 'vuex';
+
+@Options({
+  computed: {
+    ...mapGetters({
+      notes: 'notes/getNotes',
+    }),
+  },
+  methods: {
+    editNoteFun(editNote : { id: number, title: string; content: string; tags: Array<string>}) {
+      const myEditNote = {
+        id: editNote.id,
+        title: editNote.title,
+        content: editNote.content,
+        tags: editNote.tags.join(),
+      };
+      this.$store.commit('editNoteActive', myEditNote);
+      this.$store.commit('notes/editNote', myEditNote);
+    },
+    getAllTags(note: { id: number, title: string; content: string; tags: Array<string>}) {
+      let allNotesTags: Array<string> = [];
+      // eslint-disable-next-line no-restricted-syntax
+      for (const notee of this.notes) {
+        allNotesTags = allNotesTags.concat(notee.tags);
+        console.log(allNotesTags);
+      }
+      this.removeNote(note, allNotesTags);
+    },
+    removeNote(note: { id: number, title: string; content: string; tags: Array<string>},
+      allNotesTags: Array<string>) {
+      this.$store.commit('notes/removeNote', note);
+      this.$store.commit('notes/removeNotewithTag', allNotesTags);
+      this.$store.commit('defaultState');
+    },
+  },
+})
+export default class ElementList extends Vue {
+}
+</script>
+
 <style scoped>
+
+.title-and-button {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.button-container {
+  display: flex;
+  width: 100%;
+  height: 40px;
+  justify-content: flex-end;
+  padding: 5px;
+}
+.edit-button {
+  margin-right: 20px;
+}
+.show-title {
+  color: rgb(37, 26, 196);
+  font-size: 25px;
+  font-weight: 500;
+
+}
+
+.rm {
+  background:rgb(37, 26, 196);
+    color: #fff;
+    border-radius: 50%;
+}
 .note-to-show {
   flex-direction: row;
 }
@@ -63,5 +133,10 @@
   display: flex;
   width: 100%;
   flex-direction: column;
+  align-items: flex-end;
+  color: rgb(37, 26, 196);
+}
+.tag {
+  margin: 2px;
 }
 </style>

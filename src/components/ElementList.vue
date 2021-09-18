@@ -2,7 +2,7 @@
   <div class= "element" v-for="note in storeNotes"
         :key="note"
         v-show="note.tags.includes(selectedTag)&&selectedTag!=''"
-        v-on:click="onHide(note.id,storeNotes)"
+        v-on:click="showNoteActive(note.id,storeNotes)"
         >{{note.title}}
   </div>
 </template>
@@ -21,12 +21,12 @@ import { mapGetters, mapActions } from 'vuex';
     }),
   },
   methods: {
-    onHide(noteId: number) {
+    showNoteActive(noteId: number) {
       // тут я вызываю две мутации - для index и notes-store
       // первая- для смены общего состояния (отрисовки)
       // вторая- для изменения поля конкретного объекта 'show'
-      this.$store.commit('onHide');
-      this.$store.commit('showNote', noteId);
+      this.$store.commit('showNoteActive');
+      this.$store.commit('notes/showNote', noteId);
     },
   },
 })
