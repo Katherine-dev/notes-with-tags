@@ -12,11 +12,13 @@ const store: Module<ITagsStore, any> = {
     // addNote(state, payload: ITag) {
     //   state.tags.push(payload);
     // },
-    removeNotewithTag(state,
+    removeTag(state,
       payload: {
-        noteToRemove:{ id: number, title: string; content: string; tags: Array<string>},
+        note:{ id: number, title: string; content: string; tags: Array<string>},
         allNotesTags: Array<string>}) {
-      payload.noteToRemove.tags.forEach((tag: string) => {
+      console.log(`heheh${payload.note.title}`);
+
+      payload.note.tags.forEach((tag: string) => {
         if (payload.allNotesTags.filter((t) => t === tag).length === 1) {
           // localStorage.removeItem('tags');
           // localStorage.removeItem('notes');

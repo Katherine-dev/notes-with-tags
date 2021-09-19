@@ -12,7 +12,7 @@ export default createStore({
       id: 0,
       title: '',
       content: '',
-      tag: [''],
+      tags: [''],
     },
   },
   getters: {
@@ -48,11 +48,6 @@ export default createStore({
       state.showNote = true;
       state.addNote = false;
       state.editNote = false;
-
-      state.editNoteObj.id = 0;
-      state.editNoteObj.title = '';
-      state.editNoteObj.content = '';
-      state.editNoteObj.tags = [''];
     },
     editNoteActive(state,
       editNote: { id: number; title: string; content: string; tags: string; }) {
@@ -69,6 +64,12 @@ export default createStore({
       state.editNote = false;
       state.addNote = false;
       state.showNote = false;
+    },
+    removePlaceholder(state) {
+      state.editNoteObj.id = 0;
+      state.editNoteObj.title = '';
+      state.editNoteObj.content = '';
+      state.editNoteObj.tags = [''];
     },
   },
   modules: {

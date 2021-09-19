@@ -9,7 +9,7 @@
         <p class="show-title">{{ note.title }} </p>
         <div class="button-container">
         <button class="edit-button" @click="editNoteFun(note)">Edit note</button>
-        <button @click="getAllTags(note)">Delete note</button>
+        <button @click="getAllTags(note, true)">Delete note</button>
         </div>
         </div>
         <!-- <AddTagToNote
@@ -19,7 +19,7 @@
          <p class="show-content"> {{note.content}} </p>
          <div class="show-tags">
          <p class="tag" v-for="tag in note.tags" :key=tag> #{{tag}}
-           <button class="rm" @click="removeTag({ noteId: note.id , Tag: tag })">
+           <button class="rm" @click="getAllTags(note,tag,false)">
              &times;
            </button>
          </p>
@@ -52,20 +52,32 @@ import { mapGetters, mapActions } from 'vuex';
       this.$store.commit('editNoteActive', myEditNote);
       this.$store.commit('notes/editNote', myEditNote);
     },
-    getAllTags(note: { id: number, title: string; content: string; tags: Array<string>}) {
+    getAllTags(note: { id: number, title: string; content: string; tags: Array<string>},
+      tag: string,
+      removeNote: boolean) {
       let allNotesTags: Array<string> = [];
       // eslint-disable-next-line no-restricted-syntax
       for (const notee of this.notes) {
         allNotesTags = allNotesTags.concat(notee.tags);
         console.log(allNotesTags);
+        console.log(note.title);
       }
-      this.removeNote(note, allNotesTags);
+      if (removeNote) {
+        this.removeNote(note, allNotesTags);
+      } else {
+        this.removeTag(note, tag, allNotesTags);
+      }
     },
     removeNote(note: { id: number, title: string; content: string; tags: Array<string>},
       allNotesTags: Array<string>) {
+      console.log(note.title);
       this.$store.commit('notes/removeNote', note);
-      this.$store.commit('notes/removeNotewithTag', allNotesTags);
+      this.$store.commit('tags/removeTag', { note, allNotesTags });
       this.$store.commit('defaultState');
+    },
+    removeTag(noteId: number, tag: string, allNotesTags: Array<string>) {
+      console.log(tag);
+      this.$store.commit('notes/removeTagFromNote', { noteId, allNotesTags, tag });
     },
   },
 })

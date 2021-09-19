@@ -46,6 +46,7 @@ import AddingEditingNote from '@/components/AddingEditingNote.vue';
   methods: {
     addNoteFun(): void {
       this.$store.commit('addNoteState');
+      this.$store.commit('removePlaceholder');
     },
   },
   created() {

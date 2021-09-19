@@ -27,6 +27,7 @@ import { mapGetters, mapActions } from 'vuex';
       // вторая- для изменения поля конкретного объекта 'show'
       this.$store.commit('showNoteActive');
       this.$store.commit('notes/showNote', noteId);
+      this.$store.commit('removePlaceholder');
     },
   },
 })

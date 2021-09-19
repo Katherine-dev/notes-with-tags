@@ -41,6 +41,29 @@ const store: Module<INotesStore, any> = {
     },
     editNote(state, editNote: INote) {
       console.log('edit from notes-store');
+      // eslint-disable-next-line no-restricted-syntax
+      for (const note of state.notes) {
+        if (note.id === editNote.id) {
+          note.title = editNote.title;
+          note.content = editNote.content;
+          note.tags = editNote.tags;
+          note.show = true;
+        }
+      }
+    },
+    removeTagFromNote(state,
+      payload: {noteId:number, allNotesTags: Array<string>, tag: string }) {
+      console.log(payload.tag);
+      const noteToRemoveTag = state.notes.filter((note) => note.id === payload.noteId)[0];
+      console.log(noteToRemoveTag);
+      noteToRemoveTag.tags.forEach((tag) => {
+        if (payload.allNotesTags.filter((t) => t === tag).length === 1) {
+          // localStorage.removeItem('tags');
+          // localStorage.removeItem('notes');
+          // this.tags = this.tags.filter((t) => t !== tag);
+          noteToRemoveTag.tags = noteToRemoveTag.tags.filter((t) => t !== tag);
+        }
+      });
     },
   },
   getters: {
