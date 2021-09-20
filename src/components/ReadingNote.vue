@@ -9,7 +9,7 @@
         <p class="show-title">{{ note.title }} </p>
         <div class="button-container">
         <button class="edit-button" @click="editNoteFun(note)">Edit note</button>
-        <button @click="getAllTags(note, true)">Delete note</button>
+        <button @click="getAllTags(note,null, true)">Delete note</button>
         </div>
         </div>
         <!-- <AddTagToNote
@@ -65,7 +65,21 @@ import { mapGetters, mapActions } from 'vuex';
       if (removeNote) {
         this.removeNote(note, allNotesTags);
       } else {
-        this.removeTag(note, tag, allNotesTags);
+        const myEditNote = {
+          id: note.id,
+          title: note.title,
+          content: note.content,
+          tags: note.tags,
+        };
+        console.log(tag);
+
+        // this.removeTag(note.id, tag, allNotesTags);
+        this.$store.commit('tags/removeTag', { note, allNotesTags });
+        this.$store.commit('notes/removeTagFromNote', { myEditNote, tag });
+        if (note.tags.length === 0) {
+          this.$store.commit('notes/removeNote', note);
+        }
+        // this.$store.commit('defaultState');
       }
     },
     removeNote(note: { id: number, title: string; content: string; tags: Array<string>},
@@ -75,10 +89,12 @@ import { mapGetters, mapActions } from 'vuex';
       this.$store.commit('tags/removeTag', { note, allNotesTags });
       this.$store.commit('defaultState');
     },
-    removeTag(noteId: number, tag: string, allNotesTags: Array<string>) {
-      console.log(tag);
-      this.$store.commit('notes/removeTagFromNote', { noteId, allNotesTags, tag });
-    },
+    // removeTag(noteId: number, tag: string, allNotesTags: Array<string>) {
+    //   console.log(tag);
+    //   this.$store.commit('notes/removeTagFromNote', { noteId, allNotesTags, tag });
+    //   const noteToRemoveTag = this.notes.filter((note) => note.id === noteId)[0];
+    //   this.$store.commit('tags/removeTag', { note, allNotesTags });
+    // },
   },
 })
 export default class ElementList extends Vue {

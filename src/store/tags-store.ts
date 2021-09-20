@@ -17,6 +17,7 @@ const store: Module<ITagsStore, any> = {
         note:{ id: number, title: string; content: string; tags: Array<string>},
         allNotesTags: Array<string>}) {
       console.log(`heheh${payload.note.title}`);
+      // if (payload.deleteNote) {
 
       payload.note.tags.forEach((tag: string) => {
         if (payload.allNotesTags.filter((t) => t === tag).length === 1) {
@@ -26,6 +27,7 @@ const store: Module<ITagsStore, any> = {
           // this.saveTags()
         }
       });
+      // }
     },
     addTagWithNote(state,
       note: { id: number, title: string; content: string; tags: Array<string>}) {
