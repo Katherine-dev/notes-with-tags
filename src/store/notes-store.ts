@@ -23,6 +23,7 @@ const store: Module<INotesStore, any> = {
   mutations: {
     addNote(state, payload: INote) {
       state.notes.push(payload);
+      localStorage.removeItem('notes');
     },
     showNote(state, payload:number) {
       state.notes.forEach((element) => {
@@ -31,13 +32,8 @@ const store: Module<INotesStore, any> = {
       });
     },
     removeNote(state, noteToRemove : INote) {
-      // noteToRemove.tags.forEach((tag) => {
-      //   if (allNotesTags.filter((t) => t === tag).length === 1) {
-      //     // localStorage.removeItem('tags');
-      //     // localStorage.removeItem('notes');
-      //   }
-      // });
       state.notes = state.notes.filter((t) => t.id !== noteToRemove.id);
+      localStorage.removeItem('notes');
     },
     editNote(state, editNote: INote) {
       console.log('edit from notes-store');
@@ -50,6 +46,7 @@ const store: Module<INotesStore, any> = {
           note.show = true;
         }
       }
+      localStorage.removeItem('notes');
     },
     removeTagFromNote(state,
       payload: {myEditNote: INote, tag: string }) {
@@ -68,6 +65,7 @@ const store: Module<INotesStore, any> = {
           console.log(note.tags);
         }
       }
+      localStorage.removeItem('notes');
     },
     addTagToNote(state,
       payload: {noteId: number, tag: string }) {
@@ -83,6 +81,11 @@ const store: Module<INotesStore, any> = {
           }
         }
       }
+      localStorage.removeItem('notes');
+    },
+    saveNotes(state) {
+      const parsed = JSON.stringify(state.notes);
+      localStorage.setItem('notes', parsed);
     },
   },
   getters: {

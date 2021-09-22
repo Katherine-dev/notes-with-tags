@@ -52,18 +52,13 @@ import AddingEditingNote from '@/components/AddingEditingNote.vue';
   created() {
     console.log(Array.from(this.storeNotes)[0]);
   },
+  mounted() {
+    this.$store.commit('tags/saveTags');
+    this.$store.commit('notes/saveNotes');
+  },
 })
 
 export default class App extends Vue {
-  private notes: Array<string> = []
-
-  private addNote(note: string) {
-    this.notes.push(note);
-  }
-
-  private get getNotes() {
-    return this.notes;
-  }
 }
 </script>
 

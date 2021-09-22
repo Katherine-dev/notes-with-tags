@@ -52,6 +52,8 @@ import { mapGetters } from 'vuex';
       };
       this.$store.commit('editNoteActive', myEditNote);
       this.$store.commit('notes/editNote', myEditNote);
+      this.$store.commit('tags/saveTags');
+      this.$store.commit('notes/saveNotes');
     },
     getAllTags(note: { id: number, title: string; content: string; tags: Array<string>},
       tag: string,
@@ -65,6 +67,8 @@ import { mapGetters } from 'vuex';
       }
       if (removeNote) {
         this.removeNote(note, allNotesTags);
+        this.$store.commit('tags/saveTags');
+        this.$store.commit('notes/saveNotes');
       } else {
         const myEditNote = {
           id: note.id,
@@ -79,6 +83,8 @@ import { mapGetters } from 'vuex';
         if (note.tags.length === 0) {
           this.$store.commit('notes/removeNote', note);
         }
+        this.$store.commit('tags/saveTags');
+        this.$store.commit('notes/saveNotes');
       }
     },
     removeNote(note: { id: number, title: string, content: string; tags: Array<string>},
@@ -87,6 +93,8 @@ import { mapGetters } from 'vuex';
       this.$store.commit('notes/removeNote', note);
       this.$store.commit('tags/removeTag', { note, allNotesTags });
       this.$store.commit('defaultState');
+      this.$store.commit('tags/saveTags');
+      this.$store.commit('notes/saveNotes');
     },
     addTag(tag: string,
       noteId: number) {
@@ -95,6 +103,8 @@ import { mapGetters } from 'vuex';
       this.$store.commit('notes/addTagToNote', { noteId, tag });
       console.log(tag);
       this.tag = '';
+      this.$store.commit('tags/saveTags');
+      this.$store.commit('notes/saveNotes');
     },
   },
 })

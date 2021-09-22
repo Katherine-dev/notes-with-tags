@@ -67,6 +67,8 @@ import { mapGetters, mapActions, mapState } from 'vuex';
           this.$store.commit('showNoteActive');
         } else alert('Вы не ввели название или содержание заметки');
       }
+      this.$store.commit('tags/saveTags');
+      this.$store.commit('notes/saveNotes');
     },
   },
 })

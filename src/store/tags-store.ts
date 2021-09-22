@@ -17,15 +17,12 @@ const store: Module<ITagsStore, any> = {
         note:{ id: number, title: string; content: string; tags: Array<string>},
         allNotesTags: Array<string>}) {
       console.log(`heheh${payload.note.title}`);
-      // if (payload.deleteNote) {
 
       payload.note.tags.forEach((tag: string) => {
         if (payload.allNotesTags.filter((t) => t === tag).length === 1) {
-          // localStorage.removeItem('tags');
-          // localStorage.removeItem('notes');
           state.tags = state.tags.filter((t) => t !== tag);
-          // this.saveTags()
         }
+        localStorage.removeItem('notes');
       });
       // }
     },
@@ -37,16 +34,18 @@ const store: Module<ITagsStore, any> = {
           state.tags.push(addTag);
         }
       }
-      // localStorage.removeItem('tags');
-      // localStorage.removeItem('notes');
-      // this.saveNotes();
-      // this.saveTags();
+      localStorage.removeItem('tags');
       console.log('добавлен тег');
     },
     addOneTag(state, addTag: string) {
       if (!state.tags.includes(addTag)) {
         state.tags.push(addTag);
       }
+      localStorage.removeItem('tags');
+    },
+    saveTags(state) {
+      const parsed = JSON.stringify(state.tags);
+      localStorage.setItem('tags', parsed);
     },
   },
   getters: {
