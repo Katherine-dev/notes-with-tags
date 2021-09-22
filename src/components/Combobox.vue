@@ -12,9 +12,7 @@
 <script lang="ts" >
 
 import { Options, Vue } from 'vue-class-component';
-import {
-  mapGetters, mapActions, mapMutations, mapState,
-} from 'vuex';
+import { mapGetters } from 'vuex';
 
 @Options({
   state: { selectedTag: String },
@@ -23,10 +21,6 @@ import {
       storeTags: 'tags/getTags',
       selectedTag: 'getSelectedTag',
     }),
-    // ...mapState({
-    //   message: (state) => this.$store.state.selectedTag,
-    // }),
-    // ...mapMutations(['changeTag']),
   },
   created() {
     console.log('tags\n');

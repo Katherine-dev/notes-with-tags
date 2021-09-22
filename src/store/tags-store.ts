@@ -43,6 +43,11 @@ const store: Module<ITagsStore, any> = {
       // this.saveTags();
       console.log('добавлен тег');
     },
+    addOneTag(state, addTag: string) {
+      if (!state.tags.includes(addTag)) {
+        state.tags.push(addTag);
+      }
+    },
   },
   getters: {
     getTags(state) {

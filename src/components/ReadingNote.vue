@@ -12,9 +12,9 @@
         <button @click="getAllTags(note,null, true)">Delete note</button>
         </div>
         </div>
-        <!-- <AddTagToNote
-        @add-tag="MainAddTag($event, note.id)"
-        /> -->
+         <div class="tag-input">
+            <input placeholder="Add tag" v-model="tag" @keyup.enter="addTag(tag,note.id)" >
+          </div>
         <div class="main-block">
          <p class="show-content"> {{note.content}} </p>
          <div class="show-tags">
@@ -33,12 +33,13 @@
 <script lang="ts" >
 
 import { Options, Vue } from 'vue-class-component';
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 
 @Options({
   computed: {
     ...mapGetters({
       notes: 'notes/getNotes',
+      tags: 'tags/getTags',
     }),
   },
   methods: {
@@ -73,31 +74,32 @@ import { mapGetters, mapActions } from 'vuex';
         };
         console.log(tag);
 
-        // this.removeTag(note.id, tag, allNotesTags);
         this.$store.commit('tags/removeTag', { note, allNotesTags });
         this.$store.commit('notes/removeTagFromNote', { myEditNote, tag });
         if (note.tags.length === 0) {
           this.$store.commit('notes/removeNote', note);
         }
-        // this.$store.commit('defaultState');
       }
     },
-    removeNote(note: { id: number, title: string; content: string; tags: Array<string>},
+    removeNote(note: { id: number, title: string, content: string; tags: Array<string>},
       allNotesTags: Array<string>) {
       console.log(note.title);
       this.$store.commit('notes/removeNote', note);
       this.$store.commit('tags/removeTag', { note, allNotesTags });
       this.$store.commit('defaultState');
     },
-    // removeTag(noteId: number, tag: string, allNotesTags: Array<string>) {
-    //   console.log(tag);
-    //   this.$store.commit('notes/removeTagFromNote', { noteId, allNotesTags, tag });
-    //   const noteToRemoveTag = this.notes.filter((note) => note.id === noteId)[0];
-    //   this.$store.commit('tags/removeTag', { note, allNotesTags });
-    // },
+    addTag(tag: string,
+      noteId: number) {
+      console.log(tag);
+      this.$store.commit('tags/addOneTag', tag);
+      this.$store.commit('notes/addTagToNote', { noteId, tag });
+      console.log(tag);
+      this.tag = '';
+    },
   },
 })
-export default class ElementList extends Vue {
+export default class ReadingNote extends Vue {
+  private tag = '';
 }
 </script>
 
@@ -144,6 +146,9 @@ export default class ElementList extends Vue {
 
 .show-content, .show-title  {
   text-align:justify;
+}
+.tag-input {
+  display: flex;
 }
 .show-content {
   white-space: pre-line;

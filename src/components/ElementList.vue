@@ -10,7 +10,7 @@
 <script lang="ts" >
 
 import { Options, Vue } from 'vue-class-component';
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 
 @Options({
   computed: {

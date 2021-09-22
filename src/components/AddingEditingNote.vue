@@ -33,12 +33,6 @@ import { mapGetters, mapActions, mapState } from 'vuex';
       editNote: 'editNote',
       editNoteObj: 'getEditNoteObj',
     }),
-    // private EditNote = {
-    //   id: this.editNoteObj.id,
-    //   title: '',
-    //   content: '',
-    //   tags: '',
-    // },
   },
   methods: {
     onSubmit(): void {
@@ -76,7 +70,7 @@ import { mapGetters, mapActions, mapState } from 'vuex';
     },
   },
 })
-export default class ElementList extends Vue {
+export default class AddingEditingNote extends Vue {
 
 }
 </script>

@@ -51,7 +51,6 @@ import AddingEditingNote from '@/components/AddingEditingNote.vue';
   },
   created() {
     console.log(Array.from(this.storeNotes)[0]);
-    // console.log(this.getDefaultNote);
   },
 })
 

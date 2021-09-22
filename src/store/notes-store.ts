@@ -68,14 +68,21 @@ const store: Module<INotesStore, any> = {
           console.log(note.tags);
         }
       }
-      // noteToRemoveTag.tags.filter((t) => t !== payload.tag);
-
-      // if (payload.allNotesTags.filter((t) => t === tag).length === 1) {
-      //   // localStorage.removeItem('tags');
-      //   // localStorage.removeItem('notes');
-      //   // this.tags = this.tags.filter((t) => t !== tag);
-      //   noteToRemoveTag.tags = noteToRemoveTag.tags.filter((t) => t === tag);
-      // }
+    },
+    addTagToNote(state,
+      payload: {noteId: number, tag: string }) {
+      // console.log(payload.noteId);
+      // const noteToRemoveTag = state.notes.filter((note) => note.id === payload.noteId)[0];
+      // console.log(noteToRemoveTag);
+      // state.notes[payload.note.i - 1].tags.filter((t) => t !== payload.tag);
+      // eslint-disable-next-line no-restricted-syntax
+      for (const note of state.notes) {
+        if (note.id === payload.noteId) {
+          if (!note.tags.includes(payload.tag)) {
+            note.tags.push(payload.tag);
+          }
+        }
+      }
     },
   },
   getters: {
