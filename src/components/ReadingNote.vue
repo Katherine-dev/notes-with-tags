@@ -78,7 +78,7 @@ import { mapGetters } from 'vuex';
         };
         console.log(tag);
 
-        this.$store.commit('tags/removeTag', { note, allNotesTags });
+        this.$store.commit('tags/removeTagButton', { note, tag, allNotesTags });
         this.$store.commit('notes/removeTagFromNote', { myEditNote, tag });
         if (note.tags.length === 0) {
           this.$store.commit('notes/removeNote', note);

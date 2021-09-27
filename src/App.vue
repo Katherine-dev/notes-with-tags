@@ -53,8 +53,8 @@ import AddingEditingNote from '@/components/AddingEditingNote.vue';
     console.log(Array.from(this.storeNotes)[0]);
   },
   mounted() {
-    this.$store.commit('tags/saveTags');
-    this.$store.commit('notes/saveNotes');
+    this.$store.commit('tags/initialiseTags');
+    this.$store.commit('notes/initialiseNotes');
   },
 })
 

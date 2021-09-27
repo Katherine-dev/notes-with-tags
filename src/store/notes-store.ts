@@ -87,6 +87,15 @@ const store: Module<INotesStore, any> = {
       const parsed = JSON.stringify(state.notes);
       localStorage.setItem('notes', parsed);
     },
+    initialiseNotes(state) {
+      const localNotes = localStorage.getItem('notes');
+      if (localNotes) {
+        state.notes = JSON.parse(localNotes);
+      } else {
+        const parsed = JSON.stringify(state.notes);
+        localStorage.setItem('notes', parsed);
+      }
+    },
   },
   getters: {
     getNotes(state) {

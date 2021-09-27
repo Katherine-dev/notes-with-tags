@@ -26,6 +26,16 @@ const store: Module<ITagsStore, any> = {
       });
       // }
     },
+    removeTagButton(state, payload: { tag:string, allNotesTags: Array<string>}) {
+      console.log(`heheh${payload.tag}`);
+
+      if (payload.allNotesTags.filter((t) => t === payload.tag).length === 1) {
+        state.tags = state.tags.filter((t) => t !== payload.tag);
+      }
+      localStorage.removeItem('notes');
+
+      // }
+    },
     addTagWithNote(state,
       note: { id: number, title: string; content: string; tags: Array<string>}) {
       // eslint-disable-next-line no-restricted-syntax
@@ -46,6 +56,15 @@ const store: Module<ITagsStore, any> = {
     saveTags(state) {
       const parsed = JSON.stringify(state.tags);
       localStorage.setItem('tags', parsed);
+    },
+    initialiseTags(state) {
+      const localTags = localStorage.getItem('tags');
+      if (localTags) {
+        state.tags = JSON.parse(localTags);
+      } else {
+        const parsed = JSON.stringify(state.tags);
+        localStorage.setItem('tags', parsed);
+      }
     },
   },
   getters: {
